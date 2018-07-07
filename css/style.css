@@ -75,11 +75,9 @@ body {
   color: black;
 }
 
+.nav button:hover {
+  text-decoration: underline;
+}
+
 .movie {
 }
-
-.movie--high {
-  background-color: royalblue !important;
-  color: white;
-}
-

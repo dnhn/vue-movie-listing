@@ -21,7 +21,7 @@
   <ul>
     <li
       class="movie"
-      :class="{'movie--high': movie.vote_average >= 8}"
+      :style="computeColours(movie.vote_average)"
       v-for="(movie, index) in movies"
       :key="index">
       {{movie.title || movie.name}} <span>{{movie.vote_average}}</span>
@@ -64,6 +64,28 @@ var app = new Vue({
           }
         });
       }
+    },
+    computeColours(rate = 5) {
+      const hue = 240;
+      const saturation = 100;
+      const minLight = 20;
+      const maxLight = 90;
+      const lightRange = maxLight - minLight;
+      let lightness = 50;
+      let color = rate < 3 ? 'black' : 'white';
+
+      if (rate > 0) {
+        lightness = maxLight - (rate * lightRange / 10);
+      } else {
+        lightness = maxLight;
+      }
+
+      let styleValue = {
+        backgroundColor: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
+        color: color
+      };
+
+      return styleValue;
     }
   }
 });

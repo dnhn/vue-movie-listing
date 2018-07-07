@@ -19,8 +19,10 @@
     <button>Highest rated</button>
   </div>
   <ul>
-    <li>
-      Movie name <span>Movie rating</span>
+    <li
+      v-for="(movie, index) in movies"
+      :key="index">
+      {{movie.title || movie.name}} <span>{{movie.vote_average}}</span>
     </li>
   </ul>
 </div>
@@ -29,10 +31,17 @@
 var app = new Vue({
   el: '#app',
   data: {
-    movieList: []
+    movies: []
+  },
+  mounted() {
+    fetch('https://api.themoviedb.org/3/list/81576?api_key=6b56cb46c52324f74db38f7faabfddb0')
+      .then(response => response.json())
+      .then(result => {
+        this.movies = result.items;
+      });
   },
   methods: {}
-})
+});
 </script>
 </body>
 </html>

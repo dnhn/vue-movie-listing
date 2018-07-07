@@ -15,8 +15,8 @@
 <div id="app">
   <h1>IMDB movies:</h1>
   <div class="nav">
-    <button>Lowest rated</button>
-    <button>Highest rated</button>
+    <button @click="sortMovies(true)">Lowest rated</button>
+    <button @click="sortMovies()">Highest rated</button>
   </div>
   <ul>
     <li
@@ -40,7 +40,30 @@ var app = new Vue({
         this.movies = result.items;
       });
   },
-  methods: {}
+  methods: {
+    sortMovies(asc = false) {
+      let criterion = 'vote_average';
+      let criterionAlt = 'vote_count';
+
+      if (asc) {
+        this.movies.sort((a, b) => {
+          if (a[criterion] === b[criterion]) {
+            return a[criterionAlt] - b[criterionAlt];
+          } else {
+            return a[criterion] - b[criterion];
+          }
+        });
+      } else {
+        this.movies.sort((a, b) => {
+          if (b[criterion] === a[criterion]) {
+            return b[criterionAlt] - a[criterionAlt];
+          } else {
+            return b[criterion] - a[criterion];
+          }
+        });
+      }
+    }
+  }
 });
 </script>
 </body>

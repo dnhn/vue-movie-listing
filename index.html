@@ -24,28 +24,59 @@
       :style="computeColours(movie.vote_average)"
       v-for="(movie, index) in movies"
       :key="index">
-      {{movie.title || movie.name}} <span>{{movie.vote_average}}</span>
+      <div
+        class="movie-summary"
+        @click="toggleMovieDetails(movie)">
+        <h2>{{movie.title || movie.name}}</h2>
+        <span class="movie-rating">{{movie.vote_average}}</span>
+      </div>
+      <div
+        class="movie-details"
+        :class="{'movie-details--show': movie.selected}"
+        :style="{backgroundImage: `url(https://image.tmdb.org/t/p/w780/${movie.backdrop_path})`}">
+        <div class="movie-details-overlay">
+          <div class="movie-details-title">
+            <h3>
+              {{movie.title || movie.name}}
+              <small>({{new Date(movie.release_date).getFullYear()}})</small>
+            </h3>
+          </div>
+          <div class="movie-details-original-title">
+            {{movie.original_title}}
+          </div>
+          <p class="movie-details-overview" v-if="movie.overview">
+            “{{movie.overview}}”
+          </p>
+        </div>
+      </div>
     </li>
   </ul>
 </div>
 
 <script>
+const api_key = '6b56cb46c52324f74db38f7faabfddb0';
+
 var app = new Vue({
   el: '#app',
   data: {
     movies: []
   },
   mounted() {
-    fetch('https://api.themoviedb.org/3/list/81576?api_key=6b56cb46c52324f74db38f7faabfddb0')
+    fetch(`https://api.themoviedb.org/3/list/81576?api_key=${api_key}`)
       .then(response => response.json())
       .then(result => {
-        this.movies = result.items;
+        this.movies = result.items.map(item => {
+          item.selected = false;
+          return item;
+        });
       });
   },
   methods: {
     sortMovies(asc = false) {
       let criterion = 'vote_average';
       let criterionAlt = 'vote_count';
+
+      this.toggleMovieDetails();
 
       if (asc) {
         this.movies.sort((a, b) => {
@@ -86,6 +117,17 @@ var app = new Vue({
       };
 
       return styleValue;
+    },
+    toggleMovieDetails(movie) {
+      const isSelected = movie ? movie.selected : false;
+
+      this.movies.map(item => {
+        item.selected = false;
+      });
+
+      if (movie) {
+        movie.selected = !isSelected;
+      }
     }
   }
 });

@@ -80,4 +80,63 @@ body {
 }
 
 .movie {
+  flex-direction: column;
+}
+
+.movie-rating {
+  font-size: 20px;
+}
+
+.movie-summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-summary:hover {
+  color: grey;
+}
+
+.movie-details {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  transition-property: height, opacity;
+  transition-duration: .2s;
+  transition-timing-function: ease;
+}
+
+.movie-details--show {
+  height: 100%;
+  opacity: 1;
+}
+
+.movie-details-overlay {
+  min-height: 250px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .5);
+  color: white;
+  text-align: center;
+}
+
+.movie-details-title {
+}
+
+.movie-details-original-title {
+  font-style: italic;
+}
+
+.movie-details-overview {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: justify;
+  margin-top: 20px;
 }

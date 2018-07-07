@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="css/ress.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <script src="vue.js"></script>
+  <script src="vue.min.js"></script>
 </head>
 <body>
-<div id="app">
+<main id="app">
   <h1 class="page-title">IMDB movies:</h1>
-  <div class="nav">
+  <nav class="nav">
     <button @click="sortMovies(true)">Lowest rated</button>
     <button @click="sortMovies()">Highest rated</button>
-  </div>
+  </nav>
   <ul>
     <li
       class="movie"
@@ -51,7 +51,7 @@
       </div>
     </li>
   </ul>
-</div>
+</main>
 
 <script>
 const api_key = '6b56cb46c52324f74db38f7faabfddb0';

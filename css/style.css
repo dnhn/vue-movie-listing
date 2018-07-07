@@ -63,3 +63,23 @@ li:nth-child(even) {
 .nav button {
     font-size: 18px;
 }
+
+/* CUSTOM STYLES */
+
+body {
+  font-family: 'Source Serif Pro', sans-serif;
+}
+
+.page-title {
+  background-color: deepskyblue;
+  color: black;
+}
+
+.movie {
+}
+
+.movie--high {
+  background-color: royalblue !important;
+  color: white;
+}
+

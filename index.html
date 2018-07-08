@@ -68,6 +68,8 @@ var app = new Vue({
     fetch(`https://api.themoviedb.org/3/list/81576?api_key=${api_key}`)
       .then(response => response.json())
       .then(result => {
+        // add custom `selected` property to each item
+        // before assigning data
         this.movies = result.items.map(item => {
           item.selected = false;
           return item;
@@ -79,8 +81,11 @@ var app = new Vue({
       let criterion = 'vote_average';
       let criterionAlt = 'vote_count';
 
+      // close all movie details on sort
       this.toggleMovieDetails();
 
+      // alternate comparison: compare `vote_count`
+      // if `vote_average` are equal
       if (asc) {
         this.movies.sort((a, b) => {
           if (a[criterion] === b[criterion]) {
@@ -100,15 +105,18 @@ var app = new Vue({
       }
     },
     computeColours(rate = 5) {
+      // HSL colour model, hsl(240, 100%, 50%) for blue (#00f)
       const hue = 240;
       const saturation = 100;
       const minLight = 20;
       const maxLight = 90;
+      // allowed lightness range
       const lightRange = maxLight - minLight;
       let lightness = 50;
       let color = rate < 3 ? 'black' : 'white';
 
       if (rate > 0) {
+        // calculate lightness value based on rating
         lightness = maxLight - (rate * lightRange / 10);
       } else {
         lightness = maxLight;
@@ -122,12 +130,15 @@ var app = new Vue({
       return styleValue;
     },
     toggleMovieDetails(movie) {
+      // store value of `selected` flag
       const isSelected = movie ? movie.selected : false;
 
+      // close all movie details
       this.movies.map(item => {
         item.selected = false;
       });
 
+      // open selected movie details
       if (movie) {
         movie.selected = !isSelected;
       }

@@ -27,7 +27,7 @@
       <div
         class="movie-summary"
         @click="toggleMovieDetails(movie)">
-        <h2>{{movie.title || movie.name}}</h2>
+        <h2 class="movie-title">{{movie.title || movie.name}}</h2>
         <span class="movie-rating">{{movie.vote_average}}</span>
       </div>
       <div
@@ -49,6 +49,9 @@
           </p>
         </div>
       </div>
+      <div
+        class="movie-rating-bar"
+        :style="{width: `${2 * movie.vote_average}%`}"></div>
     </li>
   </ul>
 </main>

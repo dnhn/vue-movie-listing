@@ -52,9 +52,9 @@ li {
     padding: 5px;
 }
 
-li:nth-child(even) {
+/* li:nth-child(even) {
     background-color: #efefef;
-}
+} */
 
 .nav {
     margin: 0 0 20px;
@@ -81,10 +81,30 @@ body {
 
 .movie {
   flex-direction: column;
+  position: relative;
+  transition-property: background-color, color;
+  transition-duration: .5s;
+  transition-timing-function: ease;
+}
+
+.movie-title {
+  z-index: 1;
 }
 
 .movie-rating {
   font-size: 20px;
+  z-index: 1;
+}
+
+.movie-rating-bar {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: palevioletred;
+  transition: width .5s ease;
 }
 
 .movie-summary {
@@ -95,10 +115,12 @@ body {
 }
 
 .movie-summary:hover {
-  color: grey;
+  color: dimgrey;
 }
 
 .movie-details {
+  position: relative;
+  z-index: 1;
   height: 0;
   opacity: 0;
   overflow: hidden;
@@ -125,9 +147,6 @@ body {
   background-color: rgba(0, 0, 0, .5);
   color: white;
   text-align: center;
-}
-
-.movie-details-title {
 }
 
 .movie-details-original-title {
